@@ -530,7 +530,7 @@ ORDER BY J.jurusan;
 CREATE OR REPLACE VIEW peminjam_bulan AS
 SELECT B.bulan, COALESCE(A.banyak,0)
 FROM (
-	SELECT EXTRACT(MONTH FROM P.tanggal_pinjam) as bulan, COUNT(DISTINCT P.id_anggota) as banyak
+	SELECT EXTRACT(MONTH FROM P.tanggal_pinjam) as bulan, COUNT(P.id_peminjaman) as banyak
 	FROM peminjaman P
 	WHERE EXTRACT(YEAR FROM P.tanggal_pinjam) = EXTRACT(YEAR FROM CURRENT_DATE)
 	GROUP BY bulan

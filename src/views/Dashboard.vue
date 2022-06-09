@@ -536,27 +536,6 @@ export default {
     Icon,
   },
   methods: {
-    async tryFetch() {
-      // let that = this;
-      await fetch("http://localhost:3030/api", {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: "this is a message from vue client",
-        }),
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-          let temp = JSON.parse(response);
-          // that.aData = temp[0];
-          console.log(typeof response);
-          console.log(typeof temp);
-          console.log(temp[0]);
-        });
-    },
     async fetchPengunjung() {
       let that = this;
       let tempData = [];
@@ -574,17 +553,18 @@ export default {
         .then((response) => {
           console.log(response);
           tempData = JSON.parse(response);
-          console.log(typeof response);
-          console.log(typeof tempData);
-          console.log(tempData[0]);
-          console.log(tempData);
+          // console.log(typeof response);
+          // console.log(typeof tempData);
+          // console.log(tempData[0]);
+          tempData.sort((a, b) => a.bulan - b.bulan);
+          console.log("pengunjung sort =>", tempData);
           that.optionsVisitor.xaxis.categories = [];
           that.seriesVisitor[0].data = [];
-          console.log(
-            that.optionsVisitor.xaxis.categories,
-            " ==||== ",
-            that.seriesVisitor[0].data
-          );
+          // console.log(
+          //   that.optionsVisitor.xaxis.categories,
+          //   " ==||== ",
+          //   that.seriesVisitor[0].data
+          // );
           tempData.forEach((data) => {
             // tempLabel.push(that.convertToMonth(parseInt(data.bulan)));
             that.seriesVisitor[0].data.push(parseInt(data.banyak));
@@ -617,10 +597,11 @@ export default {
         .then((response) => {
           console.log(response);
           tempData = JSON.parse(response);
-          console.log(typeof response);
-          console.log(typeof tempData);
-          console.log(tempData[0]);
-          console.log(tempData);
+          // console.log(typeof response);
+          // console.log(typeof tempData);
+          // console.log(tempData[0]);
+          tempData.sort((a, b) => a.bulan - b.bulan);
+          // console.log("sort peminjam buku=>", tempData);
           that.seriesPeminjam[0].data = [];
           tempData.forEach((data) => {
             if (parseInt(data.coalesce) != 0) {
@@ -652,11 +633,12 @@ export default {
         .then((response) => {
           console.log(response);
           tempData = JSON.parse(response);
-          console.log(typeof response);
-          console.log(typeof tempData);
-          console.log(tempData[0]);
-          console.log(tempData);
-          console.log(that.optionsDonut.labels, " ==||== ", that.seriesDonut);
+          // console.log(typeof response);
+          // console.log("after sort jurusan=>", tempData);
+          // console.log(tempData[0]);
+          // console.log(tempData);
+          // console.log(that.optionsDonut.labels, " ==||== ", that.seriesDonut);
+
           that.optionsDonut = {
             labels: [],
           };
@@ -691,10 +673,11 @@ export default {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
+          // console.log("response=> ", response);
           tempData = JSON.parse(response);
-          console.log(typeof response);
-          console.log(typeof tempData);
+          tempData.sort((a, b) => a.id_anggota - b.id_anggota);
+          // console.log(typeof response);
+          // console.log("after sort =>", tempData);
           that.table_peminjaman = [];
           that.table_peminjaman.push(...tempData);
           // console.log("sebelum short =>", that.table_peminjaman);
