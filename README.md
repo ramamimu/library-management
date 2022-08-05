@@ -1,35 +1,36 @@
-# graph
+## Link Demo
 
-- grafik bulat: peminjam berdasarkan jurusan
+link demo was [here]( https://drive.google.com/file/d/1NANHuUZMP6TacieMFzAPw7lgQJ3Ez9PX/view?usp=sharing)
 
-- atas : peminjaman tiap bulan
+## Website Views
 
-- atas : Jumlah tiap bulan
+![alt](./public/117539.jpg)
+
+> API List
 
 ```json
-pengunjungBulanan
-{
+pengunjungBulanan: {
   bulan: number,
   banyak: string
 }
 ```
 
 ```json
-peminjam_jurusan{
+peminjam_jurusan: {
   jurusan: string,
   jumlah_peminjam: int
 }
 ```
 
 ```json
-peminjaman_setiap_bulan{
+peminjaman_setiap_bulan: {
   bulan: string,
   coalesce: int
 }
 ```
 
 ```json
-tabel_peminjaman{
+tabel_peminjaman: {
   denda: int,
   id_anggota: int,
   id_buku: int,
@@ -41,30 +42,6 @@ tabel_peminjaman{
 }
 ```
 
-```sql
-INSERT INTO peminjaman (tanggal_pinjam, tanggal_pengembalian, id_petugas, id_anggota, id_buku)
-VALUES
-	('2022-01-03','2022-01-15',3,1,1),
-```
+Big thanks to @sahrullahh has provided starter project i used on current project
 
-```sql
-UPDATE table_name
-SET tanggal_kembali = value1,
-    denda = value2,
-    ...
-WHERE condition;
-```
-
-- that.optionsVisitor.xaxis.categories = pengunjung_bulanan.bulan
-
-- that.seriesVisitor[0].data = pengunjung_bulanan.banyak
-
-- that.optionsDonut.labels
-
-- that.seriesDonut
-
-optionPeminjam={
-xaxis:{
-categories:
-}
-}
+[Windzo starter project](https://github.com/sahrullahh/windzo)
