@@ -1,31 +1,64 @@
-## how to build
-
-`npm run build`
-
 ## Configuration Environment
 
 ### Server
 
-server locate in ./server. here is the example configuration for server
+file locate in `./server/.env` . here is the example configuration for server
 
 ```bash
+# SERVER
 PORT=3030
+
+# DATABASE
 PGUSER=postgres
 PGHOST=localhost
 PGPASSWORD=postgres
-PGDATABASE=lib_magement
+PGDATABASE=postgres
 PGPORT=5434
 ```
 
-> SQL QUERY on ./query.sql
-
 ### User Interface
 
-example configuration for user interface
+example configuration for user interface. file locate in `.env`
 
 ```bash
 VUE_APP_TARGET_SERVER=http://localhost:3030
 ```
+
+## how to prepare the env
+
+copy env like the previous section and run these commands. after your setup finish, the program ready to run.
+
+```
+make startdb
+make init
+```
+
+> you should have installed docker and docker compose on your PC
+
+## how to run
+
+run those both commands on different terminals
+
+### user interface
+
+`npm run serve`
+
+> in some cases, need to install or run using `yarn`
+
+### server
+
+```
+cd server
+npm run server
+```
+
+## how to build
+
+`npm run build`
+
+## SQL query
+
+you can check SQL QUERY on `./query.sql`
 
 ## Link Demonstration
 
