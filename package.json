@@ -9,14 +9,15 @@
     "build": "vue-cli-service build",
     "windsass": "sass --watch src/assets/sass/app.windzo.scss src/assets/sass/css/windzo.css",
     "require": "npm i -g sass @vue/cli",
-    "server": "nodemon ./src/server/server.js"
+    "server": "nodemon ./server/server.js",
+    "migrate": "node-pg-migrate"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sahrullahh/windzo.git"
   },
   "homepage": "https://windzo.vercel.app",
-  "author": "Mohammad Sahrullah",
+  "author": "Mohammad Sahrullah & Ahmad Ferdiansyah Ramadhani",
   "license": "MIT",
   "dependencies": {
     "apexcharts": "^3.34.0",
@@ -24,9 +25,11 @@
     "chart.js": "^3.7.1",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
     "express": "^4.18.1",
     "flowbite": "^1.4.1",
     "lodash": "^4.17.21",
+    "node-pg-migrate": "^6.2.2",
     "nodemon": "^2.0.16",
     "perfect-scrollbar": "^1.5.5",
     "pg": "^8.7.3",

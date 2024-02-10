@@ -1,6 +1,35 @@
-## Link Demo
+## how to build
 
-link demo was [here]( https://drive.google.com/file/d/1NANHuUZMP6TacieMFzAPw7lgQJ3Ez9PX/view?usp=sharing)
+`npm run build`
+
+## Configuration Environment
+
+### Server
+
+server locate in ./server. here is the example configuration for server
+
+```bash
+PORT=3030
+PGUSER=postgres
+PGHOST=localhost
+PGPASSWORD=postgres
+PGDATABASE=lib_magement
+PGPORT=5434
+```
+
+> SQL QUERY on ./query.sql
+
+### User Interface
+
+example configuration for user interface
+
+```bash
+VUE_APP_TARGET_SERVER=http://localhost:3030
+```
+
+## Link Demonstration
+
+link demo was [here](https://drive.google.com/file/d/1NANHuUZMP6TacieMFzAPw7lgQJ3Ez9PX/view?usp=sharing)
 
 ## Website Views
 

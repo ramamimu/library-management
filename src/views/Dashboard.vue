@@ -35,37 +35,6 @@
       </div>
     </div>
     <div class="mt-2 lg:flex block lg:gap-2">
-      <div
-        class="mt-2 bg-white dark:bg-gray-800 p-5 w-full rounded-md box-border shadow"
-      >
-        <!-- <h2 class="font-bold text-lg text-gray-800 dark:text-gray-200">
-          5,355
-        </h2> -->
-        <p class="text-gray-400 font-lexend font-normal">
-          Peminjaman setiap bulan
-        </p>
-        <span class="float-right">
-          <h2 class="text-gray-500 mt-2 flex">
-            <span class="mr-2">
-              {{
-                seriesPeminjam[0].data[seriesPeminjam[0].data.length - 1] -
-                seriesPeminjam[0].data[seriesPeminjam[0].data.length - 2]
-              }}%
-            </span>
-          </h2>
-        </span>
-        <div class="wrapper-chart mt-5">
-          <apexchart
-            width="100%"
-            height="380"
-            type="area"
-            :options="optionsPeminjam"
-            :series="seriesPeminjam"
-          ></apexchart>
-          <br />
-          <hr />
-        </div>
-      </div>
       <!-- second -->
       <div
         class="mt-2 bg-white dark:bg-gray-800 p-5 w-full rounded-md box-border shadow"
@@ -174,12 +143,6 @@
                   class="mr-2 my-2 text-green-800 bg-green-300 px-3 py-1 rounded-md cursor-pointer"
                   @click="beforeUpdateData(items.id_peminjaman)"
                 >
-                  <!-- href="#updatesession" -->
-                  <!-- v-scroll-to="{ element: '#updatesession', duration: 5000 }" -->
-                  <!-- fetchPengunjung();
-                    fetchPeminjamJurusan();
-                    fetchPeminjamanBuku();
-                    fetchTabelPeminjaman(); -->
                   Update
                 </span>
                 <span
@@ -356,8 +319,6 @@
 <script>
 // @ is an alias to /src
 import { Icon } from "@iconify/vue";
-// import { response } from "express";
-// import pg from "pg";
 
 export default {
   name: "Dashboard",
@@ -539,8 +500,7 @@ export default {
     async fetchPengunjung() {
       let that = this;
       let tempData = [];
-      let tempLabel = [];
-      await fetch("http://localhost:3030/pengunjung", {
+      await fetch(`${process.env.VUE_APP_TARGET_SERVER}/pengunjung`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
@@ -551,22 +511,11 @@ export default {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           tempData = JSON.parse(response);
-          // console.log(typeof response);
-          // console.log(typeof tempData);
-          // console.log(tempData[0]);
           tempData.sort((a, b) => a.bulan - b.bulan);
-          console.log("pengunjung sort =>", tempData);
           that.optionsVisitor.xaxis.categories = [];
           that.seriesVisitor[0].data = [];
-          // console.log(
-          //   that.optionsVisitor.xaxis.categories,
-          //   " ==||== ",
-          //   that.seriesVisitor[0].data
-          // );
           tempData.forEach((data) => {
-            // tempLabel.push(that.convertToMonth(parseInt(data.bulan)));
             that.seriesVisitor[0].data.push(parseInt(data.banyak));
             that.pengunjung_bulanan.bulan.push(
               that.convertToMonth(parseInt(data.bulan))
@@ -584,7 +533,7 @@ export default {
       let that = this;
       let tempData = [];
       let tempLabel = [];
-      await fetch("http://localhost:3030/pinjam_buku", {
+      await fetch(`${process.env.VUE_APP_TARGET_SERVER}/pinjam_buku`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
@@ -595,13 +544,8 @@ export default {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           tempData = JSON.parse(response);
-          // console.log(typeof response);
-          // console.log(typeof tempData);
-          // console.log(tempData[0]);
           tempData.sort((a, b) => a.bulan - b.bulan);
-          // console.log("sort peminjam buku=>", tempData);
           that.seriesPeminjam[0].data = [];
           tempData.forEach((data) => {
             if (parseInt(data.coalesce) != 0) {
@@ -620,7 +564,7 @@ export default {
       let that = this;
       let tempData = [];
       let buffer = [];
-      await fetch("http://localhost:3030/peminjam", {
+      await fetch(`${process.env.VUE_APP_TARGET_SERVER}/peminjam`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
@@ -631,22 +575,14 @@ export default {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           tempData = JSON.parse(response);
-          // console.log(typeof response);
-          // console.log("after sort jurusan=>", tempData);
-          // console.log(tempData[0]);
-          // console.log(tempData);
-          // console.log(that.optionsDonut.labels, " ==||== ", that.seriesDonut);
 
           that.optionsDonut = {
             labels: [],
           };
           that.seriesDonut = [];
-          console.log(that.optionsDonut.labels, " ==||== ", that.seriesDonut);
           that.total_peminjam_jurusan = 0;
           tempData.forEach((data) => {
-            // tempData.push(data.jurusan);
             buffer.push(data.jurusan);
             that.total_peminjam_jurusan += parseInt(data.jumlah_peminjam);
 
@@ -655,14 +591,12 @@ export default {
           that.optionsDonut = {
             labels: buffer,
           };
-          console.log(that.optionsDonut.labels, " ", that.seriesDonut);
         });
     },
     async fetchTabelPeminjaman() {
       let that = this;
       let tempData = [];
-      let buffer = [];
-      await fetch("http://localhost:3030/tabel_peminjaman", {
+      await fetch(`${process.env.VUE_APP_TARGET_SERVER}/tabel_peminjaman`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
@@ -673,18 +607,13 @@ export default {
       })
         .then((response) => response.json())
         .then((response) => {
-          // console.log("response=> ", response);
           tempData = JSON.parse(response);
           tempData.sort((a, b) => a.id_anggota - b.id_anggota);
-          // console.log(typeof response);
-          // console.log("after sort =>", tempData);
           that.table_peminjaman = [];
           that.table_peminjaman.push(...tempData);
-          // console.log("sebelum short =>", that.table_peminjaman);
           that.table_peminjaman.sort(
             (a, b) => parseInt(a.id_anggota) > parseInt(b.id_anggota)
           );
-          // console.log("sesudah sort =>", that.table_peminjaman);
         });
     },
     // logic
@@ -718,9 +647,7 @@ export default {
       return name;
     },
     convertLocalTime(value) {
-      console.log(value);
       new Date(Date.parse(value + "+0000"));
-      console.log(value);
     },
     beforeUpdateData(update_id) {
       const el = document.getElementById("updatesession");
@@ -733,8 +660,7 @@ export default {
     // CRUD
     async insertData() {
       let that = this;
-      console.log("masuk");
-      await fetch("http://localhost:3030/insert_data", {
+      await fetch(`${process.env.VUE_APP_TARGET_SERVER}/insert_data`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
@@ -745,7 +671,6 @@ export default {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           that.updateAllData();
         });
       this.insert_data.id_anggota = "";
@@ -756,25 +681,26 @@ export default {
     },
     async deleteTabelPeminjaman(id_peminjaman) {
       let that = this;
-      await fetch("http://localhost:3030/delete_tabel_peminjaman", {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: `${id_peminjaman}`,
-        }),
-      })
+      await fetch(
+        `${process.env.VUE_APP_TARGET_SERVER}/delete_tabel_peminjaman`,
+        {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: `${id_peminjaman}`,
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           that.updateAllData();
         });
     },
     async updateData(e) {
       let that = this;
-      // that.update_id = update_id;
-      await fetch("http://localhost:3030/update_data", {
+      await fetch(`${process.env.VUE_APP_TARGET_SERVER}/update_data`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",
@@ -785,7 +711,6 @@ export default {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           that.updateAllData();
         });
       this.update_data.tanggal_kembali = "";

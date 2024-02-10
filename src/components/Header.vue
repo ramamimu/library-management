@@ -33,18 +33,6 @@
         </h2>
       </div>
       <div class="mr-5 flex">
-        <!-- <div
-          class="input-box border dark:bg-gray-900 dark:border-gray-700 rounded-md mr-5 hidden lg:w-search w-full box-border lg:flex md:flex focus-within:bg-gray-100 dark:focus-within:bg-gray-700"
-        > -->
-        <!-- <span class="text-3xl p-2 text-gray-400"
-              ><Icon icon="ei:search"
-            /></span> -->
-        <!-- <input
-            type="text"
-            placeholder="Search..."
-            class="p-3 w-full bg-white dark:bg-gray-900 rounded-md outline-none focus:bg-gray-100 dark:focus:bg-gray-700"
-          /> -->
-        <!-- </div> -->
         <button
           id="theme-toggle"
           type="button"
@@ -180,27 +168,6 @@ export default {
       document.documentElement.classList.remove("dark");
       themeToggleDarkIcon.classList.remove("hidden");
     }
-
-    // // if set via local storage previously
-    // if (!localStorage.getItem("color-theme")) {
-    //   if (localStorage.getItem("color-theme") === "light") {
-    //     document.documentElement.classList.add("dark");
-    //     localStorage.setItem("color-theme", "dark");
-    //   } else {
-    //     document.documentElement.classList.remove("dark");
-    //     localStorage.setItem("color-theme", "light");
-    //   }
-
-    // if NOT set via local storage previously
-    // } else {
-    //   if (document.documentElement.classList.contains("dark")) {
-    //     document.documentElement.classList.remove("dark");
-    //     localStorage.setItem("color-theme", "light");
-    //   } else {
-    //     document.documentElement.classList.add("dark");
-    //     localStorage.setItem("color-theme", "dark");
-    //   }
-    // }
 
     var themeToggleBtn = document.getElementById("theme-toggle");
 
